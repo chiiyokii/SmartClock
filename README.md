@@ -93,6 +93,6 @@ frontend/   # Vite + React/Preact UI (run on :5173)
 
 ---
 
-If you want, I can also add a minimal `backend/.env.example` and a short script to bootstrap both services.
+Now before the end of this presentation, I would like to mention my precious partners : Xelium36, Julien77-alt and mangoshaker ! 
 
 Enjoy the project! 🚀
