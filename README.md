@@ -1,99 +1,98 @@
 # DevOps Lab – Student Project (Node.js + Jira/GitHub + CI/CD)
 
-This repository is a **teaching template** for a 4-student DevOps mini-project.
-It demonstrates a realistic workflow: **PLAN (Jira) → CODE (Git/VS Code) → BUILD/TEST (GitHub Actions) → REVIEW (PRs) → DEPLOY (optional)**.
-
-> **What you get here**
-> - Minimal **Express** API with auto-mounted routes
-> - **Vitest + Supertest** for integration & unit tests
-> - Coverage thresholds enforced in CI
-> - **GitHub Actions** workflow for lint + tests + coverage artifact
-> - Clear file layout for a team of 4
+This repository is a **teaching template** for a 4-student DevOps mini-project. It contains an **Express** backend and a **Vite** frontend.
 
 ---
 
-## Quickstart
+## Quick start (install & run) ✅
+
+Prerequisites:
+- Node.js (v16+ recommended)
+- npm (bundled with Node)
+- A MongoDB instance (local or hosted). You'll need a `MONGO_URI` connection string.
+
+1) Clone the repo (if you haven't):
 
 ```bash
-npm ci
-npm run dev          # http://localhost:3000
+git clone <repo-url>
+cd SmartClock
+```
+
+2) Backend – install & run:
+
+```bash
+cd backend
+# install dependencies
+npm install
+
+# create a .env file (copy .env example if present) and set at least:
+# MONGO_URI, FRONTEND_URL, PORT, JWT_SECRET, JWT_EXPIRES_IN
+# Example:
+# MONGO_URI=mongodb+srv://<user>:<pass>@cluster.mongodb.net/?authSource=admin
+# FRONTEND_URL=http://localhost:5173
+# PORT=3000
+# JWT_SECRET=super_secret_change_me
+# JWT_EXPIRES_IN=7d
+
+# Run in development (with nodemon):
+npm run dev
+
+# or run normally:
+npm start
+```
+
+- The backend listens on `http://localhost:3000` by default.
+- Quick health check: `curl http://localhost:3000/health` should return 200.
+
+3) Frontend – install & run:
+
+```bash
+cd ../frontend
+npm install
+npm run dev
+```
+
+- The frontend uses Vite, default URL: `http://localhost:5173`.
+- Ensure `FRONTEND_URL` in the backend `.env` matches the URL where the frontend is served (defaults to `http://localhost:5173`).
+
+4) Open the app in your browser at `http://localhost:5173` and verify the backend logs for socket connections and API requests.
+
+---
+
+## Tests (optional)
+
+- If the project includes tests, run them from the backend folder:
+
+```bash
+cd backend
+npm test        # if test script is configured
 npm test -- --coverage
 ```
 
-Open `coverage/index.html` for a visual coverage report (locally).
+Note: Some starter templates include Vitest + Supertest for integration and unit tests.
 
 ---
 
-## Routes
+## Useful commands & tips 💡
 
-- `GET /` – basic JSON greeting
-- `GET /health` – health check (200 OK)
-- `GET /version` – returns `{ version }` from `package.json`
-- `GET /info` – returns `{ name, version, node, uptime }`
-- `GET /boom` – triggers an error to test the global error handler
-
-Routes are **auto-mounted** from `src/routes/auto/*.route.js` so each student can add a file without touching `src/app.js` (fewer merge conflicts).
-
----
-
-## Tests
-
-- **Integration tests** (Supertest) target HTTP endpoints in `test/*.test.js`.
-- **Unit tests** target internal logic in `test/unit/*.test.js`.
-
-Coverage thresholds (Lines/Functions/Statements ≥ 80%, Branches ≥ 70%) are set in `package.json`.  
-If coverage drops below thresholds, CI fails and blocks the merge (quality gate).
-
----
-
-## Branch & Commit Convention (Jira-friendly)
-
-- Branch: `feature/<ISSUE-KEY>-<short-desc>` → e.g., `feature/SHMS-12-info-endpoint`
-- Commit: `feat(<ISSUE-KEY>): <what>` → e.g., `feat(SHMS-12): implement /info endpoint`
-- PR title: `<ISSUE-KEY> | <title>` → e.g., `SHMS-12 | Add /info endpoint`
-
-If you install **GitHub for Jira**, issues will link automatically when the key appears in branch/commit/PR.
-
----
-
-## CI (GitHub Actions)
-
-A workflow is included at `.github/workflows/ci.yml` that runs on pushes and PRs to `main`:
-
-- Install Node and deps
-- `npm run lint`
-- `npm test -- --coverage`
-- Upload `coverage/` as an artifact
-
-> Badge (enable after first run):
->
-> ```md
-> ![CI](https://github.com/<org>/<repo>/actions/workflows/ci.yml/badge.svg)
-> ```
+- Install a missing dependency: `npm install <package>` inside the correct package folder (`backend` or `frontend`).
+- If the backend fails to start, verify:
+  - `.env` contains a valid `MONGO_URI`
+  - the MongoDB instance is reachable
+  - required packages are installed (`npm install`)
+- To inspect logs: check the terminal running `npm run dev` for backend and frontend terminals.
 
 ---
 
 ## Project layout
 
 ```
-src/
-  app.js          # Express app (auto-mount + global error handler)
-  index.js        # server entry (not used by tests)
-  routes/auto/    # students add *.route.js files here
-  utils/          # small testable helpers
-test/
-  *.test.js       # integration (HTTP) tests
-  unit/*.test.js  # pure unit tests
+backend/    # Express API (run on :3000)
+frontend/   # Vite + React/Preact UI (run on :5173)
 ```
 
 ---
 
-## Useful scripts
+If you want, I can also add a minimal `backend/.env.example` and a short script to bootstrap both services.
 
-- `npm run dev` – start dev server with nodemon
-- `npm test` – run all tests (Vitest)
-- `npm test -- --coverage` – with coverage
-- `npm run lint` – ESLint check
-
-Enjoy the lab!
-test link github jira - SCRUM-add-login-button
+Enjoy the project! 🚀
