@@ -4,7 +4,7 @@ This repository is a **teaching template** for a 4-student DevOps mini-project. 
 
 ---
 
-## Quick start (install & run) ✅
+## Quick start (install & run)
 
 Prerequisites:
 - Node.js (v16+ recommended)
@@ -73,7 +73,7 @@ Note: Some starter templates include Vitest + Supertest for integration and unit
 
 ---
 
-## Useful commands & tips 💡
+## Useful commands & tips 
 
 - Install a missing dependency: `npm install <package>` inside the correct package folder (`backend` or `frontend`).
 - If the backend fails to start, verify:
